@@ -4,3 +4,4 @@
 .scala-build
 debug_test.sc
 *.wasm
+cvc5

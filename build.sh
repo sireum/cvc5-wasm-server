@@ -24,16 +24,19 @@ if [ ! -d wasm-standalone ]; then
 fi
 cd wasm-standalone
 make -j"$NPROC"
+cmake --install . --prefix "$SCRIPT_DIR/cvc5/wasm-standalone/install"
 cd "$SCRIPT_DIR"
 
 echo "=== Step 2: Compile cvc5_server.cpp ==="
+CVC5_INSTALL="$SCRIPT_DIR/cvc5/wasm-standalone/install"
 CVC5_BUILD="$SCRIPT_DIR/cvc5/wasm-standalone"
 CVC5_DEPS="$CVC5_BUILD/deps"
 
 em++ -O2 -std=c++17 -fwasm-exceptions \
   cvc5_server.cpp \
-  -I"$CVC5_BUILD/include" \
+  -I"$CVC5_INSTALL/include" \
   -I"$CVC5_DEPS/include" \
+  -L"$CVC5_INSTALL/lib" \
   -L"$CVC5_BUILD/lib" \
   -L"$CVC5_DEPS/lib" \
   -lcvc5 -lcvc5parser -lcadical -lpicpoly -lpicpolyxx -lgmp \
