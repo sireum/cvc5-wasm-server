@@ -18,10 +18,10 @@ jobs:
         with:
           version: latest
 
-      - name: Install Binaryen
+      - name: Install Binaryen and WABT
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q binaryen
+          sudo apt-get install -y -q binaryen wabt
 
       - name: Build
         run: ./build.sh
