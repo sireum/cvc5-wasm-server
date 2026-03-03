@@ -1,0 +1,6 @@
+7zip/
+*.wasm
+.bsp
+.scala-build
+debug_test.sc
+*.wasm
