@@ -9,10 +9,11 @@ NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)
 
 echo "=== Step 1: Clone and build cvc5 for WASM ==="
 if [ ! -d cvc5 ]; then
-  git clone https://github.com/cvc5/cvc5
+  git clone --recursive https://github.com/cvc5/cvc5
 fi
 cd cvc5
-git checkout "cvc5-$CVC5_V" 2>/dev/null || true
+git checkout "cvc5-$CVC5_V"
+git submodule update --init --recursive
 
 if [ ! -d wasm-standalone ]; then
   ./configure.sh \
