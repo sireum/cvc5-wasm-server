@@ -18,10 +18,19 @@ jobs:
         with:
           version: latest
 
-      - name: Install Binaryen and WABT
+      - name: Install Binaryen
+        run: |
+          BINARYEN_URL=$(curl -s https://api.github.com/repos/WebAssembly/binaryen/releases/latest \
+            | grep -o '"browser_download_url": *"[^"]*x86_64-linux.tar.gz"' \
+            | head -1 | cut -d'"' -f4)
+          curl -LO "$BINARYEN_URL"
+          tar xzf binaryen-*-x86_64-linux.tar.gz
+          sudo cp binaryen-*/bin/* /usr/local/bin/
+
+      - name: Install WABT
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q binaryen wabt
+          sudo apt-get install -y -q wabt
 
       - name: Build
         run: ./build.sh
