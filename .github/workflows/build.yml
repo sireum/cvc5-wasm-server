@@ -38,23 +38,13 @@ jobs:
       - name: Test graal variant
         run: scala-cli run test_server.sc -- cvc5_server_graal.wasm
 
-      - name: Upload GraalWasm variant
+      - name: Upload WASM
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: sireum/rolling
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: cvc5_server_graal.wasm
-          asset_name: cvc5-server-${{ env.CVC5_V }}-graal.wasm
-          tag: cvc5
-          overwrite: true
-
-      - name: Upload wasmtime variant
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_name: sireum/rolling
-          repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: cvc5_server_wasmtime.wasm
-          asset_name: cvc5-server-${{ env.CVC5_V }}-wasmtime.wasm
+          asset_name: cvc5-server-${{ env.CVC5_V }}.wasm
           tag: cvc5
           overwrite: true
 
